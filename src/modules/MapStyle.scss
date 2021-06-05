@@ -5,6 +5,7 @@
   text-align: left;
   // 文字不可換行
   white-space: nowrap;
+  letter-spacing: 0.1rem;
 
   // 成人口罩與兒童口罩的兩個區域的容器.
   .store-status {
@@ -99,7 +100,7 @@
   // 藥局店名
   .store-name {
     padding-left: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 900;
     border-left: 0.3rem solid $sufficient;
   }

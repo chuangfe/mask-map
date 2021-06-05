@@ -28,6 +28,8 @@
 
       <!-- 銷售 -->
       <img src="../../public/images/sale.svg" />
+
+      <button @click="toggleHandler">按鈕</button>
     </div>
 
     <div id="map"></div>
@@ -45,15 +47,18 @@ const map = MapHandler();
 export default {
   data() {
     return {
-      // 台北市緯度 25.03746.
-      // latitude: 25.03746,
-      // 台北市經度 121.564558.
-      // longitude: 121.564558,
+      toggle: true,
     };
   },
   computed: {
     MaskMapData() {
       return MaskMapData.features;
+    },
+  },
+  methods: {
+    toggleHandler() {
+      this.toggle = !this.toggle;
+      map.setMarkersIcon(this.toggle);
     },
   },
   mounted() {
