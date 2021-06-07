@@ -1,6 +1,11 @@
 @import "../assets/style/variable";
+@import "../assets/style/font";
+@import "../assets/style/icon";
 
 .item-container {
+  font-family: "Font Awesome 5 Free", "Helvetica Neue", Arial, Helvetica,
+    sans-serif;
+  font-size: 1rem;
   // 文字靠左對齊
   text-align: left;
   // 文字不可換行
@@ -15,9 +20,10 @@
 
   // 成人口罩與兒童口罩的容器
   .mask-container {
-    padding: 0 1rem;
+    padding: 0 2rem;
     border-radius: 1rem;
     font-size: 1.2rem;
+    font-weight: 900;
     color: #fff;
     // 兩個容器放大時為 1 比 1 比例
     flex-grow: 1;
@@ -93,7 +99,6 @@
     // 數量
     span {
       font-size: 1.5rem;
-      font-weight: bold;
     }
   }
 
@@ -105,19 +110,13 @@
     border-left: 0.3rem solid $sufficient;
   }
 
-  // 藥局地址
-  .store-address,
-  // 藥局電話
-  .store-phone,
-  // 資料更新時間
-  .store-update {
-    font-size: 1rem;
+  .icon {
+    margin-right: 0.5rem;
+    width: 1rem;
   }
 
-  // 藥局地址, 加上底線
-  .store-address span,
-  // 藥局電話, 加上底線
-  .store-phone span {
+  // 藥局地址, 藥局電話, 加上底線
+  .underline {
     padding-bottom: 2px;
     border-bottom: 1px solid #000;
   }

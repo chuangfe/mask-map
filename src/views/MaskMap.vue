@@ -71,7 +71,8 @@ export default {
 @import "../modules/MapStyle.scss";
 
 body {
-  font: 18px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 18px;
   line-height: 1.5rem;
 }
 

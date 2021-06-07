@@ -78,18 +78,23 @@ function getPopupTemplate({
       </div>
       <p class="store-name">${name}</p>
       <p class="store-address">
-        <span>
-          <a href="https://www.google.com/maps?q=${name}+${address}" target="_blank">
-            ${address}
-          </a>
-        </span>
+          <span class="icon fas fa-map-marked-alt"></span>
+          <span class="underline">
+            <a href="https://www.google.com/maps?q=${name}+${address}" target="_blank">
+              ${address}
+            </a>
+          </span>
       </p>
       <p class="store-phone">
-        <span>
+        <span class="icon fas fa-phone"></span>
+        <span class="underline">
           ${phone}
         </span>
       </p>
-      <p class="store-update">${updated}</p>
+      <p class="store-update">
+      <span class="icon fas fa-sync-alt"></span>
+        ${updated}
+      </p>
     </div>`;
 }
 
@@ -200,8 +205,12 @@ export default function MapHandler() {
      */
     setMarkersIcon(boolean) {
       markers.forEach((item) => {
-        let index = boolean ? item.adultIconIndex : item.childIconIndex;
-        item.marker.setIcon(icons[index].icon);
+        // 如果 icon index 相同, 可以檔掉這次迴圈.
+        if (item.adultIconIndex === item.childIconIndex) return false;
+
+        item.marker.setIcon(
+          icons[boolean ? item.adultIconIndex : item.childIconIndex].icon
+        );
       });
     },
   };
