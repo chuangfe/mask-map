@@ -1,10 +1,9 @@
-@import "../assets/style/variable";
-@import "../assets/style/font";
-@import "../assets/style/icon";
+@import "../../assets/style/variable";
+@import "../../assets/style/font";
+@import "../../assets/style/icon";
 
 .item-container {
-  font-family: "Font Awesome 5 Free", "Helvetica Neue", Arial, Helvetica,
-    sans-serif;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 1rem;
   // 文字靠左對齊
   text-align: left;
@@ -21,6 +20,7 @@
   // 成人口罩與兒童口罩的容器
   .mask-container {
     padding: 0 2rem;
+    min-width: 8rem;
     border-radius: 1rem;
     font-size: 1.2rem;
     font-weight: 900;
@@ -57,7 +57,8 @@
       background-color: $sufficient;
 
       &::before {
-        background-image: url("../../public/images/tick.svg");
+        // 因為在 App.vue 引入 MapStyle.scss, 所以這裡的 url 需要以 App.vue 為主.
+        background-image: url("../public/images/tick.svg");
       }
     }
     // 口罩數量警告, 橘色, 驚嘆號
@@ -65,7 +66,8 @@
       background-color: $warning;
 
       &::before {
-        background-image: url("../../public/images/alert.svg");
+        background-image: url("../public/images/alert.svg");
+        transform: translate(1rem, 1rem);
       }
     }
     // 口罩數量危險, 紅色, 警笛
@@ -73,14 +75,14 @@
       background-color: $emergency;
 
       &::before {
-        background-image: url("../../public/images/siren.svg");
+        background-image: url("../public/images/siren.svg");
       }
     }
     // 口罩售完, 灰色, 打叉
     &.sold-out {
       background-color: $soldOut;
       &::before {
-        background-image: url("../../public/images/cross.svg");
+        background-image: url("../public/images/cross.svg");
       }
     }
   }

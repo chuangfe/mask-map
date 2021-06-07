@@ -1,3 +1,9 @@
+// icon span class 需要加上 fas(必需) fa-chevron-up(可選)
+.fas {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
 .fa-chevron-up::before {
   content: "\f077";
 }
