@@ -87,6 +87,7 @@ export default {
         this.MaskMapData[index].geometry.coordinates[0],
       ];
 
+      // 顯示指定的藥局.
       MapHandler.setStore({ center, index });
     },
   },
@@ -98,6 +99,7 @@ export default {
       data: this.MaskMapData,
     });
 
+    // 判斷有沒有 hash 值, 需要顯示指定藥局.
     this.setCenter();
   },
 };
