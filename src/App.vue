@@ -6,11 +6,11 @@
         class="control"
         :class="{ active: !isAdult }"
         @click="isAdultHandler"
-        title="切換成人 / 兒童口罩"
+        title="切換 成人 / 兒童 口罩"
       >
         <span class="fas fa-child"></span>
       </button>
-      <button class="control" title="地圖放大" @click="setZoom(1)">
+      <button class="control" title="地圖放大" @click="setZoom()">
         <span class="fas fa-plus"></span>
       </button>
       <button class="control" title="地圖縮小" @click="setZoom(-1)">
@@ -62,11 +62,25 @@ export default {
     // 根據 id 找到對應的藥局資料, 並將地圖跳轉到該藥局.
     setCenter() {
       // 這裡的 id 應該來自網址的 hash 值.
-      const id = "5901010085";
+      const id = location.hash ? location.hash.slice(1) : undefined;
+
+      // location.hash 不是數字, 或是不存在就停止函式.
+      if (isNaN(id)) return false;
+
+      // 藥局 id 長度好像固定是 10 位數.
+      if (id.length !== 10) {
+        location.hash = "";
+        return false;
+      }
+
       // Array.prototype.findIndex(); 返回 true 後就不繼續迴圈.
       const index = this.MaskMapData.findIndex((item) => {
         return item.properties.id === id;
       });
+
+      // index 找不到就停止函式.
+      if (index === -1) return false;
+
       // leafletjs 吃的經緯度與台灣資料的順序相反.
       const center = [
         this.MaskMapData[index].geometry.coordinates[1],
@@ -77,11 +91,14 @@ export default {
     },
   },
   mounted() {
+    // map 初始化.
     MapHandler.init({
       position: this.position,
       zoom: this.zoom,
       data: this.MaskMapData,
     });
+
+    this.setCenter();
   },
 };
 </script>

@@ -52,11 +52,11 @@ function getIconIndex({ adultMask, childMask }) {
 // marker 點擊事件, 用於設置 hash 值.
 function markerClickHandler(e) {
   // 藥局 id 資料, 字串類型.
-  // console.log(this.options.storeId);
+  // this.options.storeId;
   // marker index, 數值資料
-  // console.log(this.options.markerId);
-  console.log(this);
-  console.log(e);
+  // this.options.markerId;
+
+  location.hash = this.options.storeId;
 }
 
 export default {
