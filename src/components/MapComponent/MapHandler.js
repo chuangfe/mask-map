@@ -7,18 +7,60 @@ import getPopupTemplate from "./GetPopupTemplate";
 
 // map 地圖, 需要後續操作.
 // marker 單一的標記, 迴圈時會再賦值.
-// markers 配合 Marker Cluster 使用的變數, 應該是複數 marker 的集合.
-// adultIconIndex 紀錄成人口罩資料使用 markerIcons 時的索引.
-// childIconIndex 紀錄小孩口罩資料使用 markerIcons 時的索引.
-let map, cluster, adultIconIndex, childIconIndex, marker;
+// 配合 Marker Cluster 插件的變數.
+let map, marker, cluster;
 
 // markers 保存所有的資料產生的 marker 和兩種口罩的 icon 的索引.
 const markers = [],
   // 地圖最大的放大倍率.
   maxZoom = 18;
 
+/**
+ * 依據兩種口罩數量, 判斷口罩使用的 icon 圖標.
+ * @param {Number} adultMask 成人口罩數量.
+ * @param {Number} childMask 兒童口罩數量.
+ */
+function getIconIndex({ adultMask, childMask }) {
+  let adultIconIndex = 0,
+    childIconIndex = 0;
+
+  // 判斷成人口罩資料使用 markerIcons 的索引.
+  if (adultMask > 1000) {
+    adultIconIndex = 3;
+  } else if (adultMask > 500) {
+    adultIconIndex = 2;
+  } else if (adultMask > 0) {
+    adultIconIndex = 1;
+  } else {
+    adultIconIndex = 0;
+  }
+
+  // 判斷小孩口罩資料使用 markerIcons 的索引.
+  if (childMask > 1000) {
+    childIconIndex = 3;
+  } else if (childMask > 500) {
+    childIconIndex = 2;
+  } else if (childMask > 0) {
+    childIconIndex = 1;
+  } else {
+    childIconIndex = 0;
+  }
+
+  return { adultIconIndex, childIconIndex };
+}
+
+// marker 點擊事件, 用於設置 hash 值.
+function markerClickHandler(e) {
+  // 藥局 id 資料, 字串類型.
+  // console.log(this.options.storeId);
+  // marker index, 數值資料
+  // console.log(this.options.markerId);
+  console.log(this);
+  console.log(e);
+}
+
 export default {
-  // 地圖的初始化函式.
+  // 地圖初始化.
   init({ data, position, zoom }) {
     // 地圖初始化.
     map = L.map("map", {
@@ -47,34 +89,22 @@ export default {
       disableClusteringAtZoom: maxZoom,
     });
 
-    data.forEach(({ properties, geometry }) => {
-      // 判斷成人口罩資料使用 markerIcons 的索引.
-      if (properties.mask_adult > 1000) {
-        adultIconIndex = 3;
-      } else if (properties.mask_adult > 500) {
-        adultIconIndex = 2;
-      } else if (properties.mask_adult > 0) {
-        adultIconIndex = 1;
-      } else {
-        adultIconIndex = 0;
-      }
-
-      // 判斷小孩口罩資料使用 markerIcons 的索引.
-      if (properties.mask_child > 1000) {
-        childIconIndex = 3;
-      } else if (properties.mask_child > 500) {
-        childIconIndex = 2;
-      } else if (properties.mask_child > 0) {
-        childIconIndex = 1;
-      } else {
-        childIconIndex = 0;
-      }
+    data.forEach(({ properties, geometry }, index) => {
+      // 紀錄兩種口罩的 icon index 物件.
+      const indexes = getIconIndex({
+        adultMask: properties.mask_adult,
+        childMask: properties.mask_child,
+      });
 
       // 新增藥局的 marker 座標, 與 icon 圖標.
       marker = L.marker([geometry.coordinates[1], geometry.coordinates[0]], {
         icon:
           // marker 預設顯示成人口罩數量的 icon 圖標.
-          markerIcons[adultIconIndex].icon,
+          markerIcons[indexes.adultIconIndex].icon,
+        // marker 保存藥局 id 資料, 字串類型.
+        storeId: properties.id,
+        // marker 索引, 數值類型.
+        markerIndex: index,
       });
 
       // marker 的 popup 彈窗新建.
@@ -86,11 +116,11 @@ export default {
           address: properties.address,
           adultMask: {
             number: properties.mask_adult,
-            class: markerIcons[adultIconIndex].class,
+            class: markerIcons[indexes.adultIconIndex].class,
           },
           childMask: {
             number: properties.mask_child,
-            class: markerIcons[childIconIndex].class,
+            class: markerIcons[indexes.childIconIndex].class,
           },
           updated: properties.updated,
         }),
@@ -100,9 +130,16 @@ export default {
         }
       );
 
-      // 保存資料, 修改 icon 顯示時會用到.
+      // marker click 時, 修改 hash 值.
+      marker.on("click", markerClickHandler);
+
+      // 保存資料, 切換口罩顯示不同的 icon 時會用到.
       // 格式應該是這樣 item = { marker, adultIconIndex, childIconIndex };
-      markers.push({ adultIconIndex, childIconIndex, marker });
+      markers.push({
+        adultIconIndex: indexes.adultIconIndex,
+        childIconIndex: indexes.childIconIndex,
+        marker,
+      });
 
       // 將 marker 包進 Marker Cluster 插件的物件.
       // addLayer 是用於創建畫不規則形狀的圖層時用的方法.
@@ -132,18 +169,29 @@ export default {
   getZoom() {
     return map.getZoom();
   },
-  // 設定 map 的縮放倍率.
+  /**
+   * 設定 map 的縮放倍率.
+   * @param {Number} zoom 地圖縮放的倍率.
+   */
   setZoom(zoom) {
     map.setZoom(zoom);
   },
-  // 顯示指定的藥局.
+  /**
+   * 顯示指定的藥局.
+   * @param {Array} center 經緯度.
+   * @param {Number} index 藥局在資料的陣列中的索引.
+   */
   setStore({ center, index }) {
     // 地圖跳轉到指定藥局.
     map.setView(center, maxZoom);
     // 藥局的 popup 顯示.
     markers[index].marker.openPopup();
   },
-  // 設定地圖中央的經緯度, 預計將功能給縣市的跳轉.
+  /**
+   * 設定地圖中央的經緯度, 預計將功能給縣市的跳轉.
+   * @param {Array} center 經緯度.
+   * @param {Number} zoom 地圖縮放的倍率.
+   */
   setCenter({ center, zoom = maxZoom }) {
     map.setView(center, zoom);
   },

@@ -67,7 +67,7 @@ export default {
       const index = this.MaskMapData.findIndex((item) => {
         return item.properties.id === id;
       });
-      // leafletjs 吃的經緯度與台灣資料的順序相反,
+      // leafletjs 吃的經緯度與台灣資料的順序相反.
       const center = [
         this.MaskMapData[index].geometry.coordinates[1],
         this.MaskMapData[index].geometry.coordinates[0],
