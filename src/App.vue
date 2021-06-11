@@ -1,22 +1,12 @@
 <template>
   <div id="app">
     <div id="map"></div>
-    <div class="control-container">
-      <button
-        class="control"
-        :class="{ active: !isAdult }"
-        @click="isAdultHandler"
-        title="切換 成人 / 兒童 口罩"
-      >
-        <span class="fas fa-child"></span>
-      </button>
-      <button class="control" title="地圖放大" @click="setZoom()">
-        <span class="fas fa-plus"></span>
-      </button>
-      <button class="control" title="地圖縮小" @click="setZoom(-1)">
-        <span class="fas fa-minus"></span>
-      </button>
-    </div>
+    <Panel
+      @isAdult="isAdultHandler"
+      @setZoom="setZoomHandler"
+      :zoom="zoom"
+      :isAdult="isAdult"
+    ></Panel>
   </div>
 </template>
 
@@ -25,6 +15,8 @@
 import MaskMapData from "./data/MaskMapData.json";
 // 地圖的方法集合
 import MapHandler from "./components/MapComponent/MapHandler";
+// 控制板組件
+import Panel from "./components/PanelComponent/Panel";
 
 export default {
   name: "App",
@@ -46,12 +38,12 @@ export default {
   },
   methods: {
     // 切換顯示成人口罩 or 兒童口罩的 marker icon 圖標.
-    isAdultHandler() {
-      this.isAdult = !this.isAdult;
+    isAdultHandler(isAdult) {
+      this.isAdult = isAdult;
       MapHandler.setMarkersIcon(this.isAdult);
     },
     // 地圖縮放大小的控制.
-    setZoom(calc) {
+    setZoomHandler(calc) {
       // 先讀取地圖的縮放倍率, 再根據按鈕計算 zoom 的值.
       this.zoom = MapHandler.getZoom() + calc;
       // 限制地圖的縮放倍率.
@@ -60,7 +52,7 @@ export default {
       MapHandler.setZoom(this.zoom);
     },
     // 根據 id 找到對應的藥局資料, 並將地圖跳轉到該藥局.
-    setCenter() {
+    checkHash() {
       // 這裡的 id 應該來自網址的 hash 值.
       const id = location.hash ? location.hash.slice(1) : undefined;
 
@@ -91,6 +83,7 @@ export default {
       MapHandler.setStore({ center, index });
     },
   },
+  components: { Panel },
   mounted() {
     // map 初始化.
     MapHandler.init({
@@ -100,13 +93,12 @@ export default {
     });
 
     // 判斷有沒有 hash 值, 需要顯示指定藥局.
-    this.setCenter();
+    this.checkHash();
   },
 };
 </script>
 
 <style lang="scss">
-@import "../public/style/reset.css";
 @import "./components/MapComponent/MapStyle.scss";
 
 #app {
@@ -123,33 +115,5 @@ export default {
   left: 0px;
   top: 0px;
   z-index: 1;
-}
-
-.control-container {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-
-  .control {
-    margin: 2rem 0;
-    padding: 0px;
-    width: 3.5rem;
-    height: 3.5rem;
-    border: 1px solid #eee;
-    border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.8);
-    // input focus 時的邊框取消.
-    outline: none;
-    font-size: 1.2rem;
-    line-height: 3.5rem;
-    display: block;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .active {
-    background: rgba(16, 120, 121, 0.8);
-  }
 }
 </style>
