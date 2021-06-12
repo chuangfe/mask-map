@@ -70,6 +70,7 @@ export default {
       center: position,
       // 目前的縮放比例.
       zoom,
+      zoomControl: false,
     });
 
     // 地圖的資料.
@@ -192,7 +193,7 @@ export default {
    * @param {Array} center 經緯度.
    * @param {Number} zoom 地圖縮放的倍率.
    */
-  setCenter({ center, zoom = maxZoom }) {
+  setCenter({ center, zoom = 13 }) {
     map.setView(center, zoom);
   },
 };

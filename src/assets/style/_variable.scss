@@ -3,3 +3,37 @@ $sufficient: #107879;
 $warning: #e67f22;
 $emergency: #e91e3a;
 $soldOut: #999999;
+
+@mixin sufficient-background-color($opacity: 1) {
+  background-color: rgba(16, 120, 121, $opacity);
+}
+
+@mixin warning-background-color($opacity: 1) {
+  background-color: rgba(230, 127, 34, $opacity);
+}
+
+@mixin emergency-background-color($opacity: 1) {
+  background-color: rgba(233, 30, 58, $opacity);
+}
+
+@mixin soldOut-background-color($opacity: 1) {
+  background-color: rgba(153, 153, 153, $opacity);
+}
+
+@mixin button-style() {
+  padding: 0px;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  // input focus 時的邊框取消.
+  outline: none;
+  font-family: inherit;
+  font-size: 1.2rem;
+  line-height: 3.5rem;
+  text-align: center;
+  display: block;
+  // 滑鼠按鈕圖案.
+  cursor: pointer;
+}

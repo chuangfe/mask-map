@@ -6,7 +6,8 @@
       @setZoom="setZoomHandler"
       :zoom="zoom"
       :isAdult="isAdult"
-    ></Panel>
+    />
+    <Information @setCenter="setCenterHandler" />
   </div>
 </template>
 
@@ -17,6 +18,15 @@ import MaskMapData from "./data/MaskMapData.json";
 import MapHandler from "./components/MapComponent/MapHandler";
 // 控制板組件
 import Panel from "./components/PanelComponent/Panel";
+// 資訊組件
+import Information from "./components/InformationComponent/Information";
+
+// 六角學院提供的口罩資料.
+const MaskMapDataUrl =
+  "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json";
+
+// const MaskMapDataUrl =
+//   "https://raw.githubusercontent.com/kiang/pharmacies/master/json";
 
 export default {
   name: "App",
@@ -29,12 +39,6 @@ export default {
       // 預設 marker 顯示成人口罩的 icon 圖標.
       isAdult: true,
     };
-  },
-  computed: {
-    // computed 似乎只是用好看的.
-    MaskMapData() {
-      return MaskMapData.features;
-    },
   },
   methods: {
     // 切換顯示成人口罩 or 兒童口罩的 marker icon 圖標.
@@ -51,8 +55,11 @@ export default {
       // 調整地圖倍率.
       MapHandler.setZoom(this.zoom);
     },
+    setCenterHandler({ center, zoom }) {
+      MapHandler.setCenter({ center, zoom });
+    },
     // 根據 id 找到對應的藥局資料, 並將地圖跳轉到該藥局.
-    checkHash() {
+    getHash(data) {
       // 這裡的 id 應該來自網址的 hash 值.
       const id = location.hash ? location.hash.slice(1) : undefined;
 
@@ -66,7 +73,7 @@ export default {
       }
 
       // Array.prototype.findIndex(); 返回 true 後就不繼續迴圈.
-      const index = this.MaskMapData.findIndex((item) => {
+      const index = data.findIndex((item) => {
         return item.properties.id === id;
       });
 
@@ -75,31 +82,55 @@ export default {
 
       // leafletjs 吃的經緯度與台灣資料的順序相反.
       const center = [
-        this.MaskMapData[index].geometry.coordinates[1],
-        this.MaskMapData[index].geometry.coordinates[0],
+        data[index].geometry.coordinates[1],
+        data[index].geometry.coordinates[0],
       ];
 
       // 顯示指定的藥局.
       MapHandler.setStore({ center, index });
     },
   },
-  components: { Panel },
+  components: { Panel, Information },
   mounted() {
-    // map 初始化.
-    MapHandler.init({
-      position: this.position,
-      zoom: this.zoom,
-      data: this.MaskMapData,
-    });
-
-    // 判斷有沒有 hash 值, 需要顯示指定藥局.
-    this.checkHash();
+    // 使用 axios, 請求六角學院提供的口罩資料.
+    axios({
+      method: "get",
+      url: MaskMapDataUrl,
+      responseType: "json",
+    })
+      // 如果請求成功, 就使用新的 ajax 資料.
+      .then((response) => {
+        // map 初始化.
+        MapHandler.init({
+          position: this.position,
+          zoom: this.zoom,
+          data: response.data.features,
+        });
+        // 判斷 hash 值是不是藥局的 id.
+        this.getHash(response.data.features);
+      })
+      // 如果請求失敗, 使用舊的靜態資料.
+      .catch(() => {
+        // map 初始化.
+        MapHandler.init({
+          position: this.position,
+          zoom: this.zoom,
+          data: MaskMapData.features,
+        });
+        // 判斷 hash 值是不是藥局的 id.
+        this.getHash(MaskMapData.features);
+      });
   },
 };
 </script>
 
 <style lang="scss">
 @import "./components/MapComponent/MapStyle.scss";
+
+html {
+  font: 16px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  line-height: 1.5rem;
+}
 
 #app {
   width: 100vw;
