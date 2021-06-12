@@ -32,6 +32,7 @@
       <div class="from">
         <h3>縣市選擇</h3>
         <select v-model="countyIndex">
+          <option :value="null">請選擇</option>
           <option v-for="(item, index) of countys" :value="index" :key="index">
             {{ item.county }}
           </option>
@@ -39,6 +40,7 @@
 
         <h3>地區選擇</h3>
         <select v-model="townIndex">
+          <option :value="null">請選擇</option>
           <option v-for="(item, index) of towns" :value="index" :key="index">
             {{ item.town }}
           </option>
@@ -65,8 +67,8 @@ export default {
   data() {
     return {
       isActive: false,
-      countyIndex: 0,
-      townIndex: 0,
+      countyIndex: null,
+      townIndex: null,
     };
   },
   computed: {
@@ -74,7 +76,10 @@ export default {
       return CountyTown;
     },
     towns() {
-      return this.countys[this.countyIndex].towns;
+      // 如果沒選擇城市, 地區就不顯示.
+      return this.countyIndex === null
+        ? []
+        : CountyTown[this.countyIndex].towns;
     },
   },
   methods: {
@@ -88,8 +93,11 @@ export default {
         center: this.countys[this.countyIndex].center,
         zoom: 13,
       });
+      this.townIndex = null;
     },
     townIndex() {
+      if (this.townIndex === null) return false;
+
       this.$emit("setCenter", {
         center: this.towns[this.townIndex].center,
         zoom: 15,
@@ -103,6 +111,7 @@ export default {
 @import "../../assets/style/_variable.scss";
 @import "../../assets/style/_font.scss";
 
+// 最外層的容器, 顯示隱藏動畫使用.
 .information {
   transform: translateX(-100%);
   transition: transform 0.2s ease-out;
@@ -122,7 +131,7 @@ export default {
     font-weight: 900;
   }
 
-  // 容器
+  // 資訊容器
   .information-container {
     padding: 0px 2rem;
     max-width: 18rem;
