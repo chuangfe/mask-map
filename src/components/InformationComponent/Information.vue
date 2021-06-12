@@ -1,8 +1,9 @@
 <template>
   <div class="information" :class="{ active: isActive }">
     <div class="information-container">
+      <!-- 標題 -->
       <h1 class="logo">口罩地圖</h1>
-
+      <!-- icon 顏色介紹 -->
       <div class="legend">
         <div class="sufficient">
           <p>50%以上</p>
@@ -17,7 +18,7 @@
           <p>無存貨</p>
         </div>
       </div>
-
+      <!-- icon 介紹 -->
       <div class="icon-information">
         <div class="item">
           <img src="../../../public/images/current.svg" />
@@ -28,9 +29,9 @@
           <p>藥局</p>
         </div>
       </div>
-
+      <!-- 表單 -->
       <div class="from">
-        <h3>縣市選擇</h3>
+        <h3>縣市</h3>
         <select v-model="countyIndex">
           <option :value="null">請選擇</option>
           <option v-for="(item, index) of countys" :value="index" :key="index">
@@ -38,7 +39,7 @@
           </option>
         </select>
 
-        <h3>地區選擇</h3>
+        <h3>地區</h3>
         <select v-model="townIndex">
           <option :value="null">請選擇</option>
           <option v-for="(item, index) of towns" :value="index" :key="index">
@@ -46,14 +47,14 @@
           </option>
         </select>
       </div>
-
+      <!-- 版權 -->
       <div class="copyright">
         <p>
           Copyright© 2021 <a href="https://www.facebook.com/kai73002981">Kai</a>
         </p>
       </div>
     </div>
-
+    <!-- 按鈕 -->
     <button class="menu" @click="isActiveHandler" :class="{ active: isActive }">
       <span class="fas fa-chevron-up"></span>
     </button>
@@ -124,20 +125,12 @@ export default {
     transform: translateX(0%);
   }
 
-  // 標題
-  .logo {
-    margin: 2rem 0;
-    font-size: 1.8rem;
-    font-weight: 900;
-  }
-
   // 資訊容器
   .information-container {
     padding: 0px 2rem;
     max-width: 18rem;
     height: 100vh;
-    font-size: 1rem;
-    line-height: 2rem;
+    @include font-style(1rem, 2rem);
     text-align: center;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 0 1rem 1rem 0;
@@ -150,6 +143,13 @@ export default {
     overflow: auto;
   }
 
+  // 標題
+  .logo {
+    @include font-style(1.8rem);
+    font-weight: 900;
+    padding: 1.5rem 0;
+  }
+
   // icon color 說明.
   .legend {
     color: #fff;
@@ -158,9 +158,8 @@ export default {
 
     div {
       padding: 1rem 4rem;
-      font-size: 1.2rem;
+      @include font-style(1.2rem);
       font-weight: 700;
-      line-height: 1.5rem;
     }
 
     .sufficient {
@@ -204,34 +203,34 @@ export default {
 
     p {
       padding: 0 1rem;
-      font-size: 1.2rem;
-      font-weight: 400;
-      line-height: 3rem;
+      @include font-style(1.2rem, 3rem);
     }
   }
 
   // 表單, 城市區域選擇.
   .from {
     padding: 1rem 0;
-    font-size: 1.2rem;
+    @include font-style(1.2rem);
     border: 1px solid $sufficient;
     border-radius: 1rem;
 
     h3 {
-      font-size: 1.2rem;
+      padding: 0.5rem 0;
+      @include font-style(1.2rem);
       font-weight: 700;
     }
 
     select {
-      padding: 0 4rem;
-      font-size: 1.2rem;
+      margin-left: 0.5rem;
+      padding: 0 4rem 0 4.5rem;
+      @include font-style(1.2rem);
     }
   }
 
   // 版權
   .copyright {
-    padding: 2rem 0;
-    font-size: 1.2rem;
+    padding-top: 1.8rem;
+    @include font-style(1.2rem);
     font-weight: 700;
 
     a {

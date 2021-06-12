@@ -25,9 +25,6 @@ import Information from "./components/InformationComponent/Information";
 const MaskMapDataUrl =
   "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json";
 
-// const MaskMapDataUrl =
-//   "https://raw.githubusercontent.com/kiang/pharmacies/master/json";
-
 export default {
   name: "App",
   data() {

@@ -46,20 +46,6 @@ export default {
   .control {
     @include button-style();
     margin: 2rem 0;
-
-    // padding: 0px;
-    // width: 3.5rem;
-    // height: 3.5rem;
-    // border: 1px solid #eee;
-    // border-radius: 0.5rem;
-    // background: rgba(255, 255, 255, 0.8);
-    // input focus 時的邊框取消.
-    // outline: none;
-    // font-size: 1.2rem;
-    // line-height: 3.5rem;
-    // display: block;
-    // cursor: pointer;
-    // position: relative;
   }
 
   .active {

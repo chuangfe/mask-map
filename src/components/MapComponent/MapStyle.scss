@@ -3,7 +3,8 @@
 @import "../../assets/style/icon";
 
 .item-container {
-  font-size: 1rem;
+  padding-top: 0.5rem;
+  @include font-style(1rem);
   // 文字靠左對齊
   text-align: left;
   // 文字不可換行
@@ -21,7 +22,7 @@
     padding: 0 2rem;
     min-width: 8rem;
     border-radius: 1rem;
-    font-size: 1.2rem;
+    @include font-style(1.2rem);
     font-weight: 900;
     color: #fff;
     // 兩個容器放大時為 1 比 1 比例
@@ -99,14 +100,14 @@
 
     // 數量
     span {
-      font-size: 1.5rem;
+      @include font-style(1.5rem);
     }
   }
 
   // 藥局店名
   .store-name {
     padding-left: 1rem;
-    font-size: 1.5rem;
+    @include font-style(1.5rem);
     font-weight: 900;
     border-left: 0.3rem solid $sufficient;
   }
