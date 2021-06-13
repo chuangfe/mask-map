@@ -132,9 +132,10 @@ export default {
 
 <style lang="scss">
 @import "./components/Map/style.scss";
+@import "./assets/style/_media.scss";
 
 html {
-  font: 16px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   line-height: 1.5rem;
 }
 

@@ -1,0 +1,18 @@
+// 0 px ~ 767 px, 使用 font-size: 12px;
+@media only screen and (max-width: 767px) {
+  html {
+    font-size: 12px;
+  }
+}
+// 768px 以上使用 font-size: 14px;
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+// 1200px 以上使用 font-size: 16px;
+@media only screen and (min-width: 1200px) {
+  html {
+    font-size: 16px;
+  }
+}

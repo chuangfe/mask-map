@@ -1,9 +1,9 @@
 // cluster marker 組合時使用的 icon 圖標.
-import clusterIcon from "./ClusterIcon";
+import clusterIcon from "./clusterIcon";
 // 依據口罩的數量, 選擇不同的 icon class 使用.
-import markerIcons from "./MarkerIcons";
+import markerIcons from "./markerIcons";
 // 生產 popup Element 的 function.
-import getPopupTemplate from "./GetPopupTemplate";
+import getPopupTemplate from "./getPopupTemplate";
 
 // map 地圖, 需要後續操作.
 // marker 單一的標記, 迴圈時會再賦值.

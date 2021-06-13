@@ -4,40 +4,37 @@
 
 .item-container {
   padding-top: 0.5rem;
-  @include font-style(1rem);
-  // 文字靠左對齊
+  @include font-style(1.2rem, 2rem);
+  // 文字靠左對齊.
   text-align: left;
-  // 文字不可換行
-  white-space: nowrap;
+  // 文字間距.
   letter-spacing: 0.1rem;
 
   // 成人口罩與兒童口罩的兩個區域的容器.
   .store-status {
-    // 讓兩個容器不換行
+    // 讓兩個容器不換行.
     display: flex;
   }
 
-  // 成人口罩與兒童口罩的容器
+  // 成人口罩與兒童口罩的容器.
   .mask-container {
     padding: 0 2rem;
-    min-width: 8rem;
     border-radius: 1rem;
-    @include font-style(1.2rem);
-    font-weight: 900;
+    font-weight: 700;
     color: #fff;
-    // 兩個容器放大時為 1 比 1 比例
+    // 兩個容器放大時為 1 比 1 比例.
     flex-grow: 1;
-    // 兩個容器縮小時為 1 比 1 比例
+    // 兩個容器縮小時為 1 比 1 比例.
     flex-shrink: 1;
     overflow: hidden;
     position: relative;
 
-    // 成人口罩容器推右邊距
+    // 成人口罩容器推右邊距.
     &:first-child {
       margin-right: 1rem;
     }
 
-    // 圖片的共用樣式
+    // 圖片的共用樣式.
     &::before {
       content: "";
       width: 6rem;
@@ -52,7 +49,7 @@
       z-index: 1;
     }
 
-    // 口罩數量充足, 綠色, 打勾
+    // 口罩數量充足, 綠色, 打勾.
     &.sufficient {
       background-color: $sufficient;
 
@@ -61,7 +58,7 @@
         background-image: url("../public/images/tick.svg");
       }
     }
-    // 口罩數量警告, 橘色, 驚嘆號
+    // 口罩數量警告, 橘色, 驚嘆號.
     &.warning {
       background-color: $warning;
 
@@ -70,7 +67,7 @@
         transform: translate(1.2rem, 1rem);
       }
     }
-    // 口罩數量危險, 紅色, 警笛
+    // 口罩數量危險, 紅色, 警笛.
     &.emergency {
       background-color: $emergency;
 
@@ -78,7 +75,7 @@
         background-image: url("../public/images/siren.svg");
       }
     }
-    // 口罩售完, 灰色, 打叉
+    // 口罩售完, 灰色, 打叉.
     &.sold-out {
       background-color: $soldOut;
       &::before {
@@ -87,37 +84,47 @@
     }
   }
 
-  // 口罩標題
+  // 口罩標題.
   .title {
+    margin: 0px;
+    margin: 1rem 0;
+    // 文字不可換行.
+    white-space: nowrap;
     position: relative;
     z-index: 2;
   }
 
-  // 口罩數量
+  // 口罩數量.
   .quantity {
+    margin: 0px;
+    margin-bottom: 1rem;
+    // 文字不可換行.
+    white-space: nowrap;
     position: relative;
     z-index: 2;
 
     // 數量
     span {
-      @include font-style(1.5rem);
+      @include font-style(1.8rem);
+      font-weight: 900;
     }
   }
 
-  // 藥局店名
+  // 藥局店名.
   .store-name {
     padding-left: 1rem;
-    @include font-style(1.5rem);
+    @include font-style(1.8rem);
     font-weight: 900;
     border-left: 0.3rem solid $sufficient;
   }
 
+  // 地址, 電話, 更新時間的圖標.
   .icon {
     margin-right: 0.5rem;
     width: 1rem;
   }
 
-  // 藥局地址, 藥局電話, 加上底線
+  // 藥局地址, 藥局電話, 加上底線.
   .underline {
     padding-bottom: 2px;
     border-bottom: 1px solid #000;

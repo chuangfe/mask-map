@@ -19,7 +19,7 @@
     padding: 0px 2rem;
     max-width: 18rem;
     height: 100vh;
-    @include font-style(1rem, 2rem);
+    @include font-style(1.2rem);
     text-align: center;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 0 1rem 1rem 0;
@@ -36,7 +36,7 @@
   .logo {
     @include font-style(1.8rem);
     font-weight: 900;
-    padding: 1.5rem 0;
+    padding: 2rem 0;
   }
 
   // icon color 說明.
@@ -47,7 +47,6 @@
 
     div {
       padding: 1rem 4rem;
-      @include font-style(1.2rem);
       font-weight: 700;
     }
 
@@ -93,19 +92,19 @@
     p {
       padding: 0 1rem;
       @include font-style(1.2rem, 3rem);
+      font-weight: 700;
     }
   }
 
   // 表單, 城市區域選擇.
   .from {
-    padding: 1rem 0;
-    @include font-style(1.2rem);
+    padding: 0.5rem 0 1rem 0;
     border: 1px solid $sufficient;
     border-radius: 1rem;
 
     h3 {
       padding: 0.5rem 0;
-      @include font-style(1.2rem);
+      @include font-style(1.5rem);
       font-weight: 700;
     }
 
@@ -118,8 +117,7 @@
 
   // 版權
   .copyright {
-    padding-top: 1.8rem;
-    @include font-style(1.2rem);
+    padding: 2rem 0;
     font-weight: 700;
 
     a {
