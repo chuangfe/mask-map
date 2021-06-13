@@ -15,11 +15,11 @@
 // 引入靜態資料.
 import MaskMapData from "./data/MaskMapData.json";
 // 地圖的方法集合
-import MapHandler from "./components/MapComponent/MapHandler";
+import MapHandler from "./components/Map/index";
 // 控制板組件
-import Panel from "./components/PanelComponent/Panel";
+import Panel from "./components/Panel/index";
 // 資訊組件
-import Information from "./components/InformationComponent/Information";
+import Information from "./components/Information/index";
 
 // 六角學院提供的口罩資料.
 const MaskMapDataUrl =
@@ -90,39 +90,48 @@ export default {
   components: { Panel, Information },
   mounted() {
     // 使用 axios, 請求六角學院提供的口罩資料.
-    axios({
-      method: "get",
-      url: MaskMapDataUrl,
-      responseType: "json",
-    })
-      // 如果請求成功, 就使用新的 ajax 資料.
-      .then((response) => {
-        // map 初始化.
-        MapHandler.init({
-          position: this.position,
-          zoom: this.zoom,
-          data: response.data.features,
-        });
-        // 判斷 hash 值是不是藥局的 id.
-        this.getHash(response.data.features);
-      })
-      // 如果請求失敗, 使用舊的靜態資料.
-      .catch(() => {
-        // map 初始化.
-        MapHandler.init({
-          position: this.position,
-          zoom: this.zoom,
-          data: MaskMapData.features,
-        });
-        // 判斷 hash 值是不是藥局的 id.
-        this.getHash(MaskMapData.features);
-      });
+    // axios({
+    //   method: "get",
+    //   url: MaskMapDataUrl,
+    //   responseType: "json",
+    // })
+    //   // 如果請求成功, 就使用新的 ajax 資料.
+    //   .then((response) => {
+    //     // map 初始化.
+    //     MapHandler.init({
+    //       position: this.position,
+    //       zoom: this.zoom,
+    //       data: response.data.features,
+    //     });
+    //     // 判斷 hash 值是不是藥局的 id.
+    //     this.getHash(response.data.features);
+    //   })
+    //   // 如果請求失敗, 使用舊的靜態資料.
+    //   .catch(() => {
+    //     // map 初始化.
+    //     MapHandler.init({
+    //       position: this.position,
+    //       zoom: this.zoom,
+    //       data: MaskMapData.features,
+    //     });
+    //     // 判斷 hash 值是不是藥局的 id.
+    //     this.getHash(MaskMapData.features);
+    //   });
+
+    // map 初始化.
+    MapHandler.init({
+      position: this.position,
+      zoom: this.zoom,
+      data: MaskMapData.features,
+    });
+    // 判斷 hash 值是不是藥局的 id.
+    this.getHash(MaskMapData.features);
   },
 };
 </script>
 
 <style lang="scss">
-@import "./components/MapComponent/MapStyle.scss";
+@import "./components/Map/style.scss";
 
 html {
   font: 16px "Helvetica Neue", Arial, Helvetica, sans-serif;

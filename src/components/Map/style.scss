@@ -1,0 +1,125 @@
+@import "../../assets/style/variable";
+@import "../../assets/style/font";
+@import "../../assets/style/icon";
+
+.item-container {
+  padding-top: 0.5rem;
+  @include font-style(1rem);
+  // 文字靠左對齊
+  text-align: left;
+  // 文字不可換行
+  white-space: nowrap;
+  letter-spacing: 0.1rem;
+
+  // 成人口罩與兒童口罩的兩個區域的容器.
+  .store-status {
+    // 讓兩個容器不換行
+    display: flex;
+  }
+
+  // 成人口罩與兒童口罩的容器
+  .mask-container {
+    padding: 0 2rem;
+    min-width: 8rem;
+    border-radius: 1rem;
+    @include font-style(1.2rem);
+    font-weight: 900;
+    color: #fff;
+    // 兩個容器放大時為 1 比 1 比例
+    flex-grow: 1;
+    // 兩個容器縮小時為 1 比 1 比例
+    flex-shrink: 1;
+    overflow: hidden;
+    position: relative;
+
+    // 成人口罩容器推右邊距
+    &:first-child {
+      margin-right: 1rem;
+    }
+
+    // 圖片的共用樣式
+    &::before {
+      content: "";
+      width: 6rem;
+      height: 6rem;
+      background-color: transparent;
+      background-size: cover;
+      display: block;
+      transform: translate(2rem, 1rem);
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      z-index: 1;
+    }
+
+    // 口罩數量充足, 綠色, 打勾
+    &.sufficient {
+      background-color: $sufficient;
+
+      &::before {
+        // 因為在 App.vue 引入 MapStyle.scss, 所以這裡的 url 需要以 App.vue 為主.
+        background-image: url("../public/images/tick.svg");
+      }
+    }
+    // 口罩數量警告, 橘色, 驚嘆號
+    &.warning {
+      background-color: $warning;
+
+      &::before {
+        background-image: url("../public/images/alert.svg");
+        transform: translate(1.2rem, 1rem);
+      }
+    }
+    // 口罩數量危險, 紅色, 警笛
+    &.emergency {
+      background-color: $emergency;
+
+      &::before {
+        background-image: url("../public/images/siren.svg");
+      }
+    }
+    // 口罩售完, 灰色, 打叉
+    &.sold-out {
+      background-color: $soldOut;
+      &::before {
+        background-image: url("../public/images/cross.svg");
+      }
+    }
+  }
+
+  // 口罩標題
+  .title {
+    position: relative;
+    z-index: 2;
+  }
+
+  // 口罩數量
+  .quantity {
+    position: relative;
+    z-index: 2;
+
+    // 數量
+    span {
+      @include font-style(1.5rem);
+    }
+  }
+
+  // 藥局店名
+  .store-name {
+    padding-left: 1rem;
+    @include font-style(1.5rem);
+    font-weight: 900;
+    border-left: 0.3rem solid $sufficient;
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+    width: 1rem;
+  }
+
+  // 藥局地址, 藥局電話, 加上底線
+  .underline {
+    padding-bottom: 2px;
+    border-bottom: 1px solid #000;
+  }
+}

@@ -1,0 +1,147 @@
+@import "../../assets/style/_variable.scss";
+@import "../../assets/style/_font.scss";
+
+// 最外層的容器, 顯示隱藏動畫使用.
+.information {
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-out;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+
+  &.active {
+    transform: translateX(0%);
+  }
+
+  // 資訊容器
+  .information-container {
+    padding: 0px 2rem;
+    max-width: 18rem;
+    height: 100vh;
+    @include font-style(1rem, 2rem);
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0 1rem 1rem 0;
+    box-shadow: 0 0 1rem 1rem rgb(0 0 0 / 10%);
+    position: relative;
+    top: 0;
+    left: 0;
+
+    // 預設卷軸
+    overflow: auto;
+  }
+
+  // 標題
+  .logo {
+    @include font-style(1.8rem);
+    font-weight: 900;
+    padding: 1.5rem 0;
+  }
+
+  // icon color 說明.
+  .legend {
+    color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    div {
+      padding: 1rem 4rem;
+      @include font-style(1.2rem);
+      font-weight: 700;
+    }
+
+    .sufficient {
+      @include sufficient-background-color(0.7);
+    }
+
+    .warning {
+      @include warning-background-color(0.65);
+      color: #000;
+    }
+
+    .emergency {
+      @include emergency-background-color(0.3);
+      color: #000;
+    }
+
+    .soldOut {
+      @include soldOut-background-color(0.5);
+      color: #000;
+    }
+  }
+
+  // icon 說明.
+  .icon-information {
+    padding: 2rem 0;
+    // 不可以換行
+    white-space: nowrap;
+
+    .item {
+      display: flex;
+
+      &:first-child {
+        margin-bottom: 1rem;
+      }
+    }
+
+    img {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    p {
+      padding: 0 1rem;
+      @include font-style(1.2rem, 3rem);
+    }
+  }
+
+  // 表單, 城市區域選擇.
+  .from {
+    padding: 1rem 0;
+    @include font-style(1.2rem);
+    border: 1px solid $sufficient;
+    border-radius: 1rem;
+
+    h3 {
+      padding: 0.5rem 0;
+      @include font-style(1.2rem);
+      font-weight: 700;
+    }
+
+    select {
+      margin-left: 0.5rem;
+      padding: 0 4rem 0 4.5rem;
+      @include font-style(1.2rem);
+    }
+  }
+
+  // 版權
+  .copyright {
+    padding-top: 1.8rem;
+    @include font-style(1.2rem);
+    font-weight: 700;
+
+    a {
+      // 文字底線.
+      text-decoration-line: underline;
+    }
+  }
+
+  .menu {
+    @include button-style();
+    margin: 1rem;
+    transform: rotate(90deg);
+    position: absolute;
+    left: 100%;
+    top: 0px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+
+    &.active {
+      transform: rotate(-90deg);
+    }
+  }
+}

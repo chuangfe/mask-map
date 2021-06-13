@@ -1,0 +1,17 @@
+@import "../../assets/style/_variable.scss";
+
+.panel {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+
+  .control {
+    @include button-style();
+    margin: 2rem 0;
+  }
+
+  .active {
+    @include sufficient-background-color(0.8);
+  }
+}

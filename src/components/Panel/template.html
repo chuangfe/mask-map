@@ -1,0 +1,16 @@
+<div class="panel">
+  <button
+    class="control"
+    :class="{ active: !isAdult }"
+    @click="$emit('isAdult', !isAdult)"
+    title="切換 成人 / 兒童 口罩"
+  >
+    <span class="fas fa-child"></span>
+  </button>
+  <button class="control" title="地圖放大" @click="$emit('setZoom', 1)">
+    <span class="fas fa-plus"></span>
+  </button>
+  <button class="control" title="地圖縮小" @click="$emit('setZoom', -1)">
+    <span class="fas fa-minus"></span>
+  </button>
+</div>
