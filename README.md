@@ -12,7 +12,7 @@
 
 ## GitHub Pages
 
-[https://chuangfe.github.io/maks-map](https://chuangfe.github.io/maks-map/dist)
+[https://chuangfe.github.io/mask-map/dist/](https://chuangfe.github.io/mask-map/dist/)
 
 ## Framework
 
@@ -32,4 +32,6 @@
 
 ## Copyright©
 
-版權 [Kai](https://www.facebook.com/kai73002981)
+- 參考 [https://github.com/kai-tw/Mask-Map/](https://github.com/kai-tw/Mask-Map/)
+
+- 版權 [Kai](https://www.facebook.com/kai73002981)
