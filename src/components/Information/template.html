@@ -1,5 +1,9 @@
 <div class="information" :class="{ active: isActive }">
-  <div class="information-container">
+  <div
+    class="information-container"
+    v-set-top="{perfect:-perfect, windowInnerHeight}"
+    @wheel="wheelHandler($event)"
+  >
     <!-- 標題 -->
     <h1 class="logo">口罩地圖</h1>
     <!-- icon 顏色介紹 -->
@@ -57,4 +61,13 @@
   <button class="menu" @click="isActiveHandler" :class="{ active: isActive }">
     <span class="fas fa-chevron-up"></span>
   </button>
+  <!-- 卷軸 -->
+  <div
+    class="scroll-container"
+    v-if="this.onOff"
+    v-set-top="{perfect, windowInnerHeight}"
+    @mousedown="scrollMouseDownHandler($el, $event)"
+  >
+    <div class="scroll"></div>
+  </div>
 </div>
