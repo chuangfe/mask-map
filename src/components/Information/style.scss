@@ -99,8 +99,9 @@
   // 表單, 城市區域選擇.
   .from {
     padding: 0.5rem 0 1rem 0;
-    border: 1px solid $sufficient;
+    border: 2px solid $sufficient;
     border-radius: 1rem;
+    box-sizing: border-box;
 
     h3 {
       padding: 0.5rem 0;

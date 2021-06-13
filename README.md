@@ -12,7 +12,7 @@
 
 ## GitHub Pages
 
-npm install
+[https://chuangfe.github.io/maks-map](https://chuangfe.github.io/maks-map/dist)
 
 ## Framework
 
