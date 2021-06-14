@@ -1,7 +1,7 @@
-<div class="information" :class="{ active: isActive }">
+<div class="information-container" :class="{ active: isActive }">
   <div
-    class="information-container"
-    v-set-top="{perfect:-perfect, windowInnerHeight}"
+    class="information"
+    v-set-top="{perfect:-perfect, informationContainerHeight}"
     @wheel="wheelHandler($event)"
   >
     <!-- 標題 -->
@@ -64,8 +64,8 @@
   <!-- 卷軸 -->
   <div
     class="scroll-container"
-    v-if="this.onOff"
-    v-set-top="{perfect, windowInnerHeight}"
+    :class="{active: this.onOff}"
+    v-set-top="{perfect, informationContainerHeight}"
     @mousedown="scrollMouseDownHandler($el, $event)"
   >
     <div class="scroll"></div>

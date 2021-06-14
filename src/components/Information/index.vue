@@ -1,6 +1,8 @@
 <script>
 // 簡略的城市地區經緯度.
 import CountyTown from "../../data/CountyTown.json";
+// 節流函式.
+import debounce from "../../assets/script/debounce";
 
 export default {
   data() {
@@ -8,18 +10,27 @@ export default {
       isActive: false,
       countyIndex: null,
       townIndex: null,
-      // 計算可移動範圍.
-      windowInnerHeight: 0,
+
+      // information container 的可高度.
+      informationContainerHeight: 0,
+      // information 內容的高度.
+      informationHeight: 0,
+      // 計算 information 可移動範圍.
+      informationRange: 0,
+
+      // scroll 的高度.
       scrollHeight: 0,
+      // 計算 scroll 可移動範圍.
       scrollRange: 0,
       // 紀錄當前 scroll top 樣式的值.
       scrollTop: 0,
       // 紀錄 scroll mousedown event y 的值.
       scrollMouseDownY: 0,
+
       // 設置 style top 樣式的百分比, 配合自訂指令使用.
       perfect: 0,
-      // 是否需要拖拽, 要獲取高度去判斷.
-      onOff: false,
+      // 判斷是否需要 scroll 的功能, 影響 scroll .active, scroll event 的執行.
+      onOff: true,
     };
   },
   computed: {
@@ -38,7 +49,7 @@ export default {
       this.isActive = !this.isActive;
     },
     scrollMouseDownHandler(el, event) {
-      // 拖拽判斷.
+      // scroll 功能開啟關閉判斷.
       if (!this.onOff) return false;
 
       // 禁止選取文字.
@@ -55,7 +66,7 @@ export default {
       window.addEventListener("mouseup", this.scrollWindowMouseUpHandler);
     },
     scrollWindowMouseMoveHandler({ clientY }) {
-      // 組檔 mousemove 在 chreme 的 bug.
+      // 阻擋 mousemove 在 chreme 的 bug.
       if (clientY === this.scrollMouseDownY) return false;
 
       // 捲軸移動的 top 定位.
@@ -77,7 +88,7 @@ export default {
       this.$el.style.userSelect = "text";
     },
     wheelHandler({ deltaY }) {
-      // 拖拽判斷.
+      // scroll 功能開啟關閉判斷.
       if (!this.onOff) return false;
 
       this.perfect += deltaY > 0 ? 0.2 : -0.2;
@@ -85,32 +96,35 @@ export default {
       if (this.perfect > 1) this.perfect = 1;
       if (this.perfect < 0) this.perfect = 0;
     },
-    // 判斷是否需要拖拽.
-    toggleDrag() {
-      const windowInnerHeight = window.innerHeight;
-      const informationContainerHeight = this.$el.querySelector(
-        ".information-container"
-      ).offsetHeight;
+    resizeHandler() {
+      // information container.
+      let el = this.$el;
 
-      if (informationContainerHeight > windowInnerHeight) {
+      // information container 的高度.
+      this.informationContainerHeight = el.offsetHeight;
+      // information 內容的高度.
+      this.informationHeight = el.querySelector(".information").offsetHeight;
+      // information 可移動範圍.
+      this.informationRange = Math.abs(
+        this.informationContainerHeight - this.informationHeight
+      ).toFixed(0);
+
+      // scroll 的高度.
+      this.scrollHeight = el.querySelector(".scroll-container").offsetHeight;
+      // scroll 可移動範圍.
+      this.scrollRange = (
+        this.informationContainerHeight - this.scrollHeight
+      ).toFixed(0);
+
+      // 判斷是否需要拖拽.
+      if (this.informationHeight > this.informationContainerHeight) {
         this.onOff = true;
       } else {
         this.onOff = false;
+        this.informationRange = 0;
+        this.scrollRange = 0;
         this.perfect = 0;
       }
-    },
-    windowResizeHandler() {
-      // 螢幕可視區高度, 會給自訂指令去觸發樣式調整.
-      this.windowInnerHeight = window.innerHeight;
-      // 需要判斷捲軸拖拽事件的範圍, 捲軸高度 0.8 是樣式設置的.
-      this.scrollHeight = (window.innerHeight * 0.8).toFixed(0);
-      // 捲軸可移動範圍.
-      this.scrollRange = (this.windowInnerHeight - this.scrollHeight).toFixed(
-        0
-      );
-
-      // 判斷是否需要拖拽.
-      this.toggleDrag();
     },
   },
   watch: {
@@ -135,8 +149,14 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener("resize", this.windowResizeHandler);
-    this.windowResizeHandler();
+    window.addEventListener(
+      "resize",
+      debounce(this.resizeHandler, {
+        // resize 1 秒後執行函式.
+        wait: 1000,
+      })
+    );
+    this.resizeHandler();
   },
 };
 </script>
