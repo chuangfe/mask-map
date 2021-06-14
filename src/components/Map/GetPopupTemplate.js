@@ -21,15 +21,13 @@ export default function getPopupTemplate({
         <div class="mask-container ${adultMask.class}">
           <p class="title">成人口罩數量</p>
           <p class="quantity">
-            <span>${adultMask.number}</span>
-            片
+            <span>${adultMask.number}</span>片
           </p>
         </div>
         <div class="mask-container ${childMask.class}">
           <p class="title">兒童口罩數量</p>
           <p class="quantity">
-            <span>${childMask.number}</span>
-            片
+            <span>${childMask.number}</span>片
           </p>
         </div>
       </div>

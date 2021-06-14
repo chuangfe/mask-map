@@ -131,8 +131,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./assets/style/media.scss";
 @import "./components/Map/style.scss";
-@import "./assets/style/_media.scss";
 
 html {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;

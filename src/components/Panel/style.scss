@@ -1,10 +1,10 @@
-@import "../../assets/style/_variable.scss";
+@import "../../assets/style/variable.scss";
 
 .panel {
   position: absolute;
   right: 1rem;
   bottom: 1rem;
-  z-index: 2;
+  z-index: 1;
 
   .control {
     @include button-style();

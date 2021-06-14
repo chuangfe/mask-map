@@ -87,6 +87,7 @@ export default {
       // 允許選取文字.
       this.$el.style.userSelect = "text";
     },
+    // 滾輪事件.
     wheelHandler({ deltaY }) {
       // scroll 功能開啟關閉判斷.
       if (!this.onOff) return false;
@@ -98,7 +99,7 @@ export default {
     },
     resizeHandler() {
       // information container.
-      let el = this.$el;
+      const el = this.$el;
 
       // information container 的高度.
       this.informationContainerHeight = el.offsetHeight;
@@ -121,9 +122,7 @@ export default {
         this.onOff = true;
       } else {
         this.onOff = false;
-        this.informationRange = 0;
-        this.scrollRange = 0;
-        this.perfect = 0;
+        this.informationRange = this.scrollRange = this.perfect = 0;
       }
     },
   },

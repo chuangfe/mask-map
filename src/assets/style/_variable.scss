@@ -1,8 +1,13 @@
-// 顏色
+// 顏色.
 $sufficient: #107879;
 $warning: #e67f22;
 $emergency: #e91e3a;
 $soldOut: #999999;
+
+// 媒體查詢 RWD.
+$xl: 1200px;
+$md: 768px;
+$sm: 576px;
 
 @mixin sufficient-background-color($opacity: 1) {
   background-color: rgba(16, 120, 121, $opacity);

@@ -46,7 +46,6 @@
       position: absolute;
       right: 0px;
       bottom: 0px;
-      z-index: 1;
     }
 
     // 口罩數量充足, 綠色, 打勾.
@@ -91,7 +90,6 @@
     // 文字不可換行.
     white-space: nowrap;
     position: relative;
-    z-index: 2;
   }
 
   // 口罩數量.
@@ -101,7 +99,6 @@
     // 文字不可換行.
     white-space: nowrap;
     position: relative;
-    z-index: 2;
 
     // 數量
     span {

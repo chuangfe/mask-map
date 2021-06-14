@@ -1,0 +1,16 @@
+@import "../../assets/style/variable";
+
+.panel {
+  display: flex;
+  font-size: 2rem;
+  position: absolute;
+  right: 0;
+  bottom: 1rem;
+
+  .control {
+    margin: 0 1rem;
+    width: 4rem;
+    height: 4rem;
+    @include font-style(1.5rem, 4rem);
+  }
+}

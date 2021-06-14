@@ -1,0 +1,78 @@
+@import "../../assets/style/variable";
+
+.information-container {
+  width: 100vw;
+  height: 50vh;
+  transform: translateY(0%);
+  left: 0px;
+  top: 100%;
+
+  &.active {
+    transform: translateY(-100%);
+    box-shadow: 0 0 1rem 1rem rgb(0 0 0 / 10%);
+  }
+
+  // 標題
+  .logo {
+    @include font-style(3rem);
+  }
+
+  // icon color 說明.
+  .legend {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+
+    div {
+      padding: 1rem 0;
+      @include font-style(1.5rem);
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+  }
+
+  // icon 說明.
+  .icon-information {
+    img {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    p {
+      padding: 0 1rem;
+      @include font-style(1.5rem, 4rem);
+    }
+  }
+
+  // 表單.
+  .from {
+    h3 {
+      @include font-style(2rem);
+    }
+
+    select {
+      @include font-style(1.8rem);
+    }
+  }
+
+  // 版權
+  .copyright {
+    @include font-style(1.8rem);
+  }
+
+  // 按鈕
+  .menu {
+    margin: 1rem;
+    width: 4rem;
+    height: 4rem;
+    @include font-style(1.5rem, 4rem);
+    transform: rotate(0deg);
+    top: auto;
+    left: 0%;
+    bottom: 100%;
+
+    &.active {
+      transform: rotate(-180deg);
+    }
+  }
+}
