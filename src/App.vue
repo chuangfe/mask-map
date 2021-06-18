@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div id="map"></div>
+    <!-- <div id="map"></div> -->
+    <MapComponent />
     <Panel
       @isAdult="isAdultHandler"
       @setZoom="setZoomHandler"
@@ -14,11 +15,13 @@
 <script>
 // 引入靜態資料.
 import MaskMapData from "./data/MaskMapData.json";
-// 地圖的方法集合
-import MapHandler from "./components/Map/index";
-// 控制板組件
+// 地圖的方法集合.
+import MapHandler from "./components/Map/MapHandler";
+// 地圖組件.
+import MapComponent from "./components/Map/index.vue";
+// 控制板組件.
 import Panel from "./components/Panel/index";
-// 資訊組件
+// 資訊組件.
 import Information from "./components/Information/index";
 
 // 六角學院提供的口罩資料.
@@ -87,7 +90,7 @@ export default {
       MapHandler.setStore({ center, index });
     },
   },
-  components: { Panel, Information },
+  components: { MapComponent, Panel, Information },
   mounted() {
     // 使用 axios, 請求六角學院提供的口罩資料.
     // axios({
@@ -132,7 +135,6 @@ export default {
 
 <style lang="scss">
 @import "./assets/style/media.scss";
-@import "./components/Map/style.scss";
 
 html {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -144,14 +146,5 @@ html {
   height: 100vh;
   overflow: hidden;
   position: relative;
-}
-
-#map {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  z-index: 1;
 }
 </style>

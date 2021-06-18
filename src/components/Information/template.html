@@ -1,10 +1,10 @@
-<div class="information-container" :class="{ active: isActive }">
+<div
+  class="information-container"
+  :class="{ active: isActive }"
+  @touchstart="touchstartHandler($event)"
+>
   <div class="hidden-container">
-    <div
-      class="information"
-      v-set-top="{perfect:-perfect, informationContainerHeight}"
-      @wheel="wheelHandler($event)"
-    >
+    <div class="information" @wheel="wheelHandler($event)">
       <!-- 標題 -->
       <h1 class="logo">口罩地圖</h1>
       <!-- icon 顏色介紹 -->
@@ -68,16 +68,18 @@
   </div>
 
   <!-- 按鈕 -->
-  <button class="menu" @click="isActiveHandler" :class="{ active: isActive }">
+  <button
+    class="menu"
+    @click="isActive = !isActive"
+    :class="{ active: isActive }"
+  >
     <span class="fas fa-chevron-up"></span>
   </button>
+
   <!-- 卷軸 -->
   <div
-    class="scroll-container"
-    :class="{active: this.onOff}"
-    v-set-top="{perfect, informationContainerHeight}"
-    @mousedown="scrollMouseDownHandler($el, $event)"
-  >
-    <div class="scroll"></div>
-  </div>
+    class="scroll"
+    :class="{active: isScroll}"
+    @mousedown="scrollMouseDownHandler($event)"
+  ></div>
 </div>

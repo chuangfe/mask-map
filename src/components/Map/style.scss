@@ -2,6 +2,15 @@
 @import "../../assets/style/font";
 @import "../../assets/style/icon";
 
+#map {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+}
+
 .item-container {
   padding-top: 0.5rem;
   @include font-style(1.2rem, 2rem);
@@ -53,8 +62,7 @@
       background-color: $sufficient;
 
       &::before {
-        // 因為在 App.vue 引入 MapStyle.scss, 所以這裡的 url 需要以 App.vue 為主.
-        background-image: url("../public/images/tick.svg");
+        background-image: url("../../../public/images/tick.svg");
       }
     }
     // 口罩數量警告, 橘色, 驚嘆號.
@@ -62,7 +70,7 @@
       background-color: $warning;
 
       &::before {
-        background-image: url("../public/images/alert.svg");
+        background-image: url("../../../public/images/alert.svg");
         transform: translate(1.2rem, 1rem);
       }
     }
@@ -71,14 +79,14 @@
       background-color: $emergency;
 
       &::before {
-        background-image: url("../public/images/siren.svg");
+        background-image: url("../../../public/images/siren.svg");
       }
     }
     // 口罩售完, 灰色, 打叉.
     &.sold-out {
       background-color: $soldOut;
       &::before {
-        background-image: url("../public/images/cross.svg");
+        background-image: url("../../../public/images/cross.svg");
       }
     }
   }
