@@ -37,8 +37,10 @@ export default {
       isActive: false,
       // 判斷當前裝置的類型.
       isMobile: false,
-      // 判斷 scroll wheel event 是否執行, scroll 是否顯示.
+      // 判斷 scroll wheel event 是否執行.
       isScroll: false,
+      // scroll 是否顯示.
+      isShowScroll: false,
 
       // window 的寬度.
       windowInnerWidth: 0,
@@ -200,11 +202,14 @@ export default {
        * 判斷 information 內容的高度, 是否有超過 information Container 容器的高度,
        * 若超過則需要 scroll 與 wheel 的 event 事件, 並顯示 scroll 的樣式.
        */
-      this.isScroll =
-        this.informationHeight > this.informationContainerHeight ? true : false;
+      if (this.informationHeight > this.informationContainerHeight) {
+        this.isScroll = this.isShowScroll = true;
+      } else {
+        this.isScroll = this.isShowScroll = false;
+      }
 
       // 當前是 mobile 裝置, 關閉 scroll wheel event, 隱藏 scroll 樣式.
-      if (this.isMobile) this.isScroll = false;
+      if (this.isMobile) this.isShowScroll = false;
 
       // 調整 information scroll 的高度.
       this.perfect = 0;
