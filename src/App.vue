@@ -55,6 +55,7 @@ export default {
       // 調整地圖倍率.
       MapHandler.setZoom(this.zoom);
     },
+    // 給表單快速跳轉縣市地區.
     setCenterHandler({ center, zoom }) {
       MapHandler.setCenter({ center, zoom });
     },
@@ -134,17 +135,26 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/style/media.scss";
+@import "./assets/style/media";
 
 html {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   line-height: 1.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
 }
 
 #app {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   position: relative;
+  left: 0px;
+  top: 0px;
 }
 </style>

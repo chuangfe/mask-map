@@ -1,5 +1,5 @@
 // 生產 popup Element 的 function.
-import getPopupTemplate from "./getPopupTemplate";
+import getPopupTemplate from "./GetPopupTemplate";
 
 // cluster marker 收縮時使用的 icon 圖標.
 const clusterIcon = L.icon({

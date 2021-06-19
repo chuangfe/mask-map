@@ -260,6 +260,17 @@ export default {
       })
     );
     this.resizeHandler();
+
+    // 阻止 mobile 下拉重新整理.
+    document.body.addEventListener(
+      "touchmove",
+      function(e) {
+        // 阻止默認事件函式.
+        e.preventDefault();
+      },
+      // 待補充.
+      { passive: false }
+    );
   },
 };
 </script>

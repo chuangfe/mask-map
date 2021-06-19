@@ -1,7 +1,7 @@
 <div
   class="information-container"
   :class="{ active: isActive }"
-  @touchstart="touchstartHandler($event)"
+  @touchstart.stop="touchstartHandler($event)"
 >
   <div class="hidden-container">
     <div class="information" @wheel="wheelHandler($event)">
