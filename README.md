@@ -1,5 +1,7 @@
 # 台灣藥局口罩販售地圖
 
+![image](./public/images/mark-down.png)
+
 - 依照藥局的經緯度, 製作 Marker 在地圖上.
 
 - 每個 Marker 點擊後能顯示藥局的資料, 並修改 hash 值, 即可使用網址追蹤藥局.
@@ -20,15 +22,7 @@
 
 - leaflet.markercluster@1.4.1
 
-- axios
-
 - vue.js@2.6.14
-
-## RWD
-
-- 目前只有測試 1440 \* 900 的解析度.
-
-- 目前只有測試 Chrome Firefox.
 
 ## Copyright©
 
